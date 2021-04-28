@@ -4,7 +4,7 @@ const server = require('http').Server(app)
 const io = require('socket.io')(server)
 const { ExpressPeerServer } = require('peer');
 
-server.listen(process.env.PORT || 3000)
+
 
 const peerServer = ExpressPeerServer(server, {
   debug: true,
@@ -16,8 +16,7 @@ app.use('/peerjs', peerServer)
 peerServer.on('connection', function (client) {
   console.log('user with ', client.id, 'connected');
 });
-server.on('disconnect', function (client) 
-{
+server.on('disconnect', function (client) {
   console.log('user with ', client.id, 'disconnected');
 });
 app.set('view engine', 'ejs')
@@ -44,3 +43,4 @@ io.on('connection', socket => {
   })
 })
 
+server.listen(process.env.PORT || 3000)
